@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 
 //creating schema
@@ -16,9 +16,12 @@ const mongoose = require("mongoose");
     age:{
         type: Number,
 
-    }
-});
+    }, 
+},
+{ timestamps: true}
+);
 
 //create Model
 export const User = mongoose.model('User', userSchema)
-module.exports= User;
+// module.exports= User;
+
