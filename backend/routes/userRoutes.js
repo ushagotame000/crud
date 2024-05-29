@@ -35,6 +35,60 @@ router.post("/",async(req,res)=>{
     }
   })
 
+
+//get single user
+router.get("/:id",async (req,res) =>{
+const {id} = req.params;
+
+  try{
+    const showAll = await User.findById({_id :id});
+    res.sendStatus (201).json(singleUser);
+  }
+  catch(error){
+    console.log(error);
+    res.sendStatus(500).json({error:error.message});
+
+  }
+})
+
+
+//delete
+router.delete("/:id",async (req,res) =>{
+  const {id} = req.params;
+  
+    try{
+      const deleteUser = await User.findByIdAndDelete({_id :id});
+      res.sendStatus (201).json(singleUser);
+    }
+    catch(error){
+      console.log(error);
+      res.sendStatus(500).json({error:error.message});
+  
+    }
+  })
+  
+  //put or update
+
+  router.patch("/:id", async(rrq,res)=>{
+    const{id} = req.params;
+    try{
+      const {name, email,age}= req.body;
+      try {
+        const updateUser = await User.findByIdAndUpdate(id,req.body,{
+          new:true,
+        });
+res.status(200).json(updateUser);
+
+
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({error:error.message});
+      }
+    }
+  })
+
+
+
   export default userRoutes;
   
   
